@@ -12,7 +12,7 @@ import { useLeads } from "@/lib/context/LeadsContext";
 import { PipelineStage, Lead } from "@/lib/data/mock-pipeline";
 
 export default function LeadsSearchPage() {
-  const { getAllLeads, pipelineData, updatePipelineData } = useLeads();
+  const { getAllLeads, pipelineData, updatePipelineData, addLead } = useLeads();
   const leads = getAllLeads();
   
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
