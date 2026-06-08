@@ -20,7 +20,7 @@ export function SalesAssistant() {
             <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
               <Bot className="w-4 h-4 text-primary" />
             </div>
-            <SheetTitle className="font-outfit text-xl">AI Sales Assistant</SheetTitle>
+            <SheetTitle className="font-heading text-xl">AI Sales Assistant</SheetTitle>
           </div>
           <SheetDescription>
             I can help you draft emails, analyze leads, or summarize documents.

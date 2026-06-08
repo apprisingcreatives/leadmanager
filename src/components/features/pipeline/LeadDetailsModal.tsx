@@ -86,7 +86,7 @@ export function LeadDetailsModal({ lead, open, onOpenChange }: LeadDetailsModalP
                 {isEditing ? (
                   <Input value={editedLead.name} onChange={e => setEditedLead({...editedLead, name: e.target.value})} className="text-2xl font-bold h-10 w-full" />
                 ) : (
-                  <DialogTitle className="text-3xl font-bold font-outfit text-slate-900 leading-tight">{editedLead.name}</DialogTitle>
+                  <DialogTitle className="text-3xl font-bold font-heading text-slate-900 leading-tight">{editedLead.name}</DialogTitle>
                 )}
                 {!isEditing && <Badge variant={editedLead.aiScore > 80 ? "default" : "secondary"} className="shadow-sm">AI Score: {editedLead.aiScore}</Badge>}
               </div>
@@ -128,7 +128,7 @@ export function LeadDetailsModal({ lead, open, onOpenChange }: LeadDetailsModalP
                     ))}
                   </select>
                 ) : (
-                  <Badge variant="outline" className="font-semibold text-indigo-600 border-indigo-200 bg-indigo-50/80">
+                  <Badge variant="outline" className="font-semibold text-blue-600 border-blue-200 bg-blue-50/80">
                     {editedLead.status}
                   </Badge>
                 )}
@@ -149,12 +149,12 @@ export function LeadDetailsModal({ lead, open, onOpenChange }: LeadDetailsModalP
                   </>
                 ) : (
                   <>
-                    <a href={`mailto:${displayEmail}`} className="flex items-center gap-3 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/80 hover:text-indigo-700 transition-colors shadow-sm cursor-pointer group">
-                      <Mail className="w-4 h-4 text-slate-400 group-hover:text-indigo-500" />
+                    <a href={`mailto:${displayEmail}`} className="flex items-center gap-3 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 hover:border-blue-300 hover:bg-blue-50/80 hover:text-blue-700 transition-colors shadow-sm cursor-pointer group">
+                      <Mail className="w-4 h-4 text-slate-400 group-hover:text-blue-500" />
                       {displayEmail}
                     </a>
-                    <a href={`tel:${rawPhone}`} className="flex items-center gap-3 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/80 hover:text-indigo-700 transition-colors shadow-sm cursor-pointer group">
-                      <Phone className="w-4 h-4 text-slate-400 group-hover:text-indigo-500" />
+                    <a href={`tel:${rawPhone}`} className="flex items-center gap-3 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 hover:border-blue-300 hover:bg-blue-50/80 hover:text-blue-700 transition-colors shadow-sm cursor-pointer group">
+                      <Phone className="w-4 h-4 text-slate-400 group-hover:text-blue-500" />
                       {displayPhone}
                     </a>
                     {editedLead.fax && (
@@ -176,8 +176,8 @@ export function LeadDetailsModal({ lead, open, onOpenChange }: LeadDetailsModalP
                       </div>
                     )}
                     {editedLead.socialMedia && (
-                      <a href={editedLead.socialMedia.startsWith('http') ? editedLead.socialMedia : `https://${editedLead.socialMedia}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/80 hover:text-indigo-700 transition-colors shadow-sm cursor-pointer group">
-                        <LinkIcon className="w-4 h-4 text-slate-400 group-hover:text-indigo-500" />
+                      <a href={editedLead.socialMedia.startsWith('http') ? editedLead.socialMedia : `https://${editedLead.socialMedia}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 hover:border-blue-300 hover:bg-blue-50/80 hover:text-blue-700 transition-colors shadow-sm cursor-pointer group">
+                        <LinkIcon className="w-4 h-4 text-slate-400 group-hover:text-blue-500" />
                         {editedLead.socialMedia}
                       </a>
                     )}
@@ -187,8 +187,8 @@ export function LeadDetailsModal({ lead, open, onOpenChange }: LeadDetailsModalP
             </div>
 
             <div className="space-y-3 mt-auto">
-              <h4 className="text-sm font-semibold flex items-center gap-2 border-b pb-2 text-slate-800"><Brain className="w-4 h-4 text-pink-500" /> AI Insights</h4>
-              <div className="text-sm text-slate-700 leading-relaxed bg-gradient-to-br from-pink-50 to-purple-50 p-4 rounded-xl border border-pink-100/50 shadow-sm">
+              <h4 className="text-sm font-semibold flex items-center gap-2 border-b pb-2 text-slate-800"><Brain className="w-4 h-4 text-teal-500" /> AI Insights</h4>
+              <div className="text-sm text-slate-700 leading-relaxed bg-gradient-to-br from-teal-50 to-blue-50 p-4 rounded-xl border border-teal-100/50 shadow-sm">
                 This prospect is a strong match for your services. Based on the industry ({editedLead.industry}) and company size, they likely have immediate needs that align with Mediflow's core offerings.
               </div>
             </div>
@@ -243,7 +243,7 @@ export function LeadDetailsModal({ lead, open, onOpenChange }: LeadDetailsModalP
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-3 mt-auto shrink-0 border-t border-slate-200 pt-4">
-              <Button onClick={() => window.location.href = `mailto:${displayEmail}`} className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm py-6 rounded-xl cursor-pointer">
+              <Button onClick={() => window.location.href = `mailto:${displayEmail}`} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white shadow-sm py-6 rounded-xl cursor-pointer">
                 <Mail className="w-5 h-5 mr-2" /> Send Email
               </Button>
               <Button variant="outline" className="flex-1 bg-white hover:bg-slate-50 shadow-sm border-slate-200 py-6 rounded-xl">

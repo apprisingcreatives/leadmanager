@@ -21,7 +21,7 @@ export default function IntelligencePage() {
           <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
             <Brain className="w-10 h-10 text-primary" />
           </div>
-          <h2 className="font-outfit text-4xl md:text-5xl font-extrabold tracking-tight text-foreground mb-4">
+          <h2 className="font-heading text-4xl md:text-5xl font-extrabold tracking-tight text-foreground mb-4">
             AI Lead Discovery
           </h2>
           <p className="text-muted-foreground max-w-2xl text-lg">
@@ -33,7 +33,7 @@ export default function IntelligencePage() {
       {/* Input Section */}
       <Card className="rounded-3xl overflow-hidden relative z-10 shadow-sm border">
         <CardHeader className="bg-muted/30 border-b pb-6">
-          <CardTitle className="text-2xl font-outfit flex items-center gap-2">
+          <CardTitle className="text-2xl font-heading flex items-center gap-2">
             <Search className="w-6 h-6 text-primary" /> Define Target Profile (ICP)
           </CardTitle>
           <CardDescription className="text-base">
@@ -69,7 +69,7 @@ export default function IntelligencePage() {
       <div className="space-y-6 mt-4">
         <div className="flex items-center gap-3">
           <div className="h-8 w-2 bg-primary rounded-full" />
-          <h3 className="font-outfit text-2xl font-bold text-foreground">Recent High-Intent Discoveries</h3>
+          <h3 className="font-heading text-2xl font-bold text-foreground">Recent High-Intent Discoveries</h3>
         </div>
         
         <div className="grid gap-6">

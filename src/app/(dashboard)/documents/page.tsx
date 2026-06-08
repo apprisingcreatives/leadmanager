@@ -120,7 +120,7 @@ export default function DocumentsPage() {
     <div className="flex flex-col h-full gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-outfit text-3xl font-bold tracking-tight">Document Intelligence</h2>
+          <h2 className="font-heading text-3xl font-bold tracking-tight">Document Intelligence</h2>
           <p className="text-muted-foreground">Upload PDFs and let AI extract key requirements, budgets, and timelines.</p>
         </div>
       </div>

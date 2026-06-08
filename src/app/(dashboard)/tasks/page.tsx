@@ -15,7 +15,7 @@ export default function TasksPage() {
     <div className="flex flex-col h-full gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-outfit text-3xl font-bold tracking-tight">Tasks & Follow-ups</h2>
+          <h2 className="font-heading text-3xl font-bold tracking-tight">Tasks & Follow-ups</h2>
           <p className="text-muted-foreground">Stay on top of your sales activities.</p>
         </div>
         <Button>Create Task</Button>

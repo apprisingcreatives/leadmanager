@@ -52,16 +52,16 @@ export default function UnifiedKanbanPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search leads, companies, or documents..."
-              className="w-full h-10 pl-11 rounded-full bg-slate-50 border-slate-200 focus-visible:ring-indigo-500 transition-all text-sm shadow-inner"
+              className="w-full h-10 pl-11 rounded-full bg-slate-50 border-slate-200 focus-visible:ring-blue-500 transition-all text-sm shadow-inner"
             />
          </div>
 
          {/* Right: Actions & Profile */}
          <div className="flex items-center gap-3 shrink-0 overflow-x-auto pb-1 xl:pb-0">
-            <Button onClick={() => setIsAddLeadOpen(true)} className="gap-2 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm font-semibold rounded-lg h-10 whitespace-nowrap">
+            <Button onClick={() => setIsAddLeadOpen(true)} className="gap-2 bg-blue-600 hover:bg-blue-700 text-white shadow-sm font-semibold rounded-lg h-10 whitespace-nowrap">
                <UserPlus className="w-4 h-4" /> Add Lead
             </Button>
-            <Button onClick={() => setIsUploadOpen(true)} variant="secondary" className="gap-2 bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold rounded-lg h-10 whitespace-nowrap">
+            <Button onClick={() => setIsUploadOpen(true)} variant="secondary" className="gap-2 bg-teal-100 hover:bg-teal-200 text-teal-700 font-semibold rounded-lg h-10 whitespace-nowrap">
                <UploadCloud className="w-4 h-4" /> Upload PDF
             </Button>
             <Button onClick={() => setIsAiFinderOpen(true)} variant="outline" className="gap-2 border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-semibold rounded-lg h-10 whitespace-nowrap">
@@ -74,7 +74,7 @@ export default function UnifiedKanbanPage() {
               <DropdownMenuTrigger className="outline-none">
                 <div className="relative flex items-center justify-center text-slate-500 hover:bg-slate-100 hover:text-slate-800 rounded-full hidden md:flex h-10 w-10 cursor-pointer transition-colors">
                   <Bell className="h-5 w-5" />
-                  <span className="absolute right-2.5 top-2.5 flex h-2 w-2 items-center justify-center rounded-full bg-pink-500 ring-2 ring-white"></span>
+                  <span className="absolute right-2.5 top-2.5 flex h-2 w-2 items-center justify-center rounded-full bg-teal-500 ring-2 ring-white"></span>
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64 mt-2">
@@ -88,9 +88,9 @@ export default function UnifiedKanbanPage() {
 
             <DropdownMenu>
               <DropdownMenuTrigger className="outline-none">
-                <Avatar className="h-10 w-10 cursor-pointer ring-2 ring-transparent hover:ring-indigo-500/20 transition-all hidden md:flex shadow-sm">
+                <Avatar className="h-10 w-10 cursor-pointer ring-2 ring-transparent hover:ring-blue-500/20 transition-all hidden md:flex shadow-sm">
                   <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback className="bg-indigo-100 text-indigo-700 font-bold">AC</AvatarFallback>
+                  <AvatarFallback className="bg-blue-100 text-blue-700 font-bold">AC</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 mt-2">
