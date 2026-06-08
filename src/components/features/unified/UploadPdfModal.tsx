@@ -74,11 +74,7 @@ export function UploadPdfModal({ open, onOpenChange }: { open: boolean, onOpenCh
 
   return (
     <Dialog open={open} onOpenChange={(openState) => { if(!isProcessing) onOpenChange(openState); }}>
-      <DialogContent 
-        className="sm:max-w-[500px]"
-        onInteractOutside={(e) => { if (isProcessing) e.preventDefault(); }}
-        onEscapeKeyDown={(e) => { if (isProcessing) e.preventDefault(); }}
-      >
+      <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2"><UploadCloud className="w-5 h-5 text-indigo-500"/> Upload Document</DialogTitle>
           <DialogDescription>Upload an RFP, client brief, or clinic list (e.g. Intellicare). AI will extract leads and drop them onto your board.</DialogDescription>
