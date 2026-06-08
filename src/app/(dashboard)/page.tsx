@@ -8,13 +8,24 @@ import { AiFinderModal } from "@/components/features/unified/AiFinderModal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UserPlus, UploadCloud, Brain, Search, Bell } from "lucide-react";
+import { UserPlus, UploadCloud, Brain, Search, Bell, LogOut, Settings } from "lucide-react";
 import Image from "next/image";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default function UnifiedKanbanPage() {
   const [isAddLeadOpen, setIsAddLeadOpen] = useState(false);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [isAiFinderOpen, setIsAiFinderOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/login");
+  };
 
   return (
     <div className="flex flex-col h-[calc(100vh-3rem)] gap-6">
@@ -38,6 +49,8 @@ export default function UnifiedKanbanPage() {
             <Search className="absolute left-3.5 top-3 h-4 w-4 text-slate-400" />
             <Input
               type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search leads, companies, or documents..."
               className="w-full h-10 pl-11 rounded-full bg-slate-50 border-slate-200 focus-visible:ring-indigo-500 transition-all text-sm shadow-inner"
             />
@@ -57,20 +70,45 @@ export default function UnifiedKanbanPage() {
 
             <div className="h-8 w-px bg-slate-200 mx-2 hidden md:block"></div>
 
-            <Button variant="ghost" size="icon" className="relative text-slate-500 hover:bg-slate-100 hover:text-slate-800 rounded-full hidden md:flex h-10 w-10">
-              <Bell className="h-5 w-5" />
-              <span className="absolute right-2.5 top-2.5 flex h-2 w-2 items-center justify-center rounded-full bg-pink-500 ring-2 ring-white"></span>
-            </Button>
-            <Avatar className="h-10 w-10 cursor-pointer ring-2 ring-transparent hover:ring-indigo-500/20 transition-all hidden md:flex shadow-sm">
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback className="bg-indigo-100 text-indigo-700 font-bold">AC</AvatarFallback>
-            </Avatar>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="outline-none">
+                <div className="relative flex items-center justify-center text-slate-500 hover:bg-slate-100 hover:text-slate-800 rounded-full hidden md:flex h-10 w-10 cursor-pointer transition-colors">
+                  <Bell className="h-5 w-5" />
+                  <span className="absolute right-2.5 top-2.5 flex h-2 w-2 items-center justify-center rounded-full bg-pink-500 ring-2 ring-white"></span>
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-64 mt-2">
+                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <div className="p-4 text-center text-sm text-slate-500">
+                  You're all caught up!
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger className="outline-none">
+                <Avatar className="h-10 w-10 cursor-pointer ring-2 ring-transparent hover:ring-indigo-500/20 transition-all hidden md:flex shadow-sm">
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback className="bg-indigo-100 text-indigo-700 font-bold">AC</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 mt-2">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer gap-2"><Settings className="w-4 h-4"/> Settings</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleSignOut} className="text-rose-600 focus:bg-rose-50 focus:text-rose-700 cursor-pointer gap-2">
+                  <LogOut className="w-4 h-4"/> Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
          </div>
       </div>
 
       {/* Kanban Board Container */}
       <div className="flex-1 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/50 shadow-inner">
-         <KanbanBoard />
+         <KanbanBoard searchQuery={searchQuery} />
       </div>
 
       {/* Modals */}

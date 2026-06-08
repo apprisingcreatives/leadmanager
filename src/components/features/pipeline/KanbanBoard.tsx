@@ -16,7 +16,7 @@ const STAGES: PipelineStage[] = [
   "Negotiation",
 ];
 
-export function KanbanBoard() {
+export function KanbanBoard({ searchQuery = "" }: { searchQuery?: string }) {
   const { pipelineData, updatePipelineData } = useLeads();
   const [isMounted, setIsMounted] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
@@ -59,15 +59,27 @@ export function KanbanBoard() {
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex h-full gap-4 overflow-x-auto pb-4 pt-2">
-          {STAGES.map((stage) => (
-            <KanbanColumn 
-              key={stage} 
-              id={stage} 
-              title={stage} 
-              leads={pipelineData[stage]} 
-              onLeadClick={setSelectedLead}
-            />
-          ))}
+          {STAGES.map((stage) => {
+            let stageLeads = pipelineData[stage];
+            if (searchQuery) {
+              const q = searchQuery.toLowerCase();
+              stageLeads = stageLeads.filter(l => 
+                l.name.toLowerCase().includes(q) || 
+                (l.companyName && l.companyName.toLowerCase().includes(q)) ||
+                (l.email && l.email.toLowerCase().includes(q)) ||
+                (l.phone && l.phone.toLowerCase().includes(q))
+              );
+            }
+            return (
+              <KanbanColumn 
+                key={stage} 
+                id={stage} 
+                title={stage} 
+                leads={stageLeads} 
+                onLeadClick={setSelectedLead}
+              />
+            );
+          })}
         </div>
       </DragDropContext>
       
