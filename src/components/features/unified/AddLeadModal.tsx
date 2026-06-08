@@ -16,6 +16,9 @@ export function AddLeadModal({ open, onOpenChange }: { open: boolean, onOpenChan
     value: "10000",
     email: "",
     phone: "",
+    fax: "",
+    clinicHours: "",
+    address: "",
     socialMedia: ""
   });
 
@@ -32,16 +35,19 @@ export function AddLeadModal({ open, onOpenChange }: { open: boolean, onOpenChan
       status: 'Researching',
       email: newLeadForm.email,
       phone: newLeadForm.phone,
+      fax: newLeadForm.fax,
+      clinicHours: newLeadForm.clinicHours,
+      address: newLeadForm.address,
       socialMedia: newLeadForm.socialMedia
     });
     
     onOpenChange(false);
-    setNewLeadForm({ name: "", companyName: "", industry: "", value: "10000", email: "", phone: "", socialMedia: "" });
+    setNewLeadForm({ name: "", companyName: "", industry: "", value: "10000", email: "", phone: "", fax: "", clinicHours: "", address: "", socialMedia: "" });
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2"><UserPlus className="w-5 h-5 text-indigo-500"/> Add New Lead</DialogTitle>
           <DialogDescription>Manually enter a prospect to drop them onto your Kanban board.</DialogDescription>
@@ -74,6 +80,20 @@ export function AddLeadModal({ open, onOpenChange }: { open: boolean, onOpenChan
               <label htmlFor="phone" className="text-sm font-medium">Phone (Optional)</label>
               <Input id="phone" type="tel" value={newLeadForm.phone} onChange={(e) => setNewLeadForm({...newLeadForm, phone: e.target.value})} placeholder="+63 917..." />
             </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <label htmlFor="fax" className="text-sm font-medium">Fax (Optional)</label>
+              <Input id="fax" type="tel" value={newLeadForm.fax} onChange={(e) => setNewLeadForm({...newLeadForm, fax: e.target.value})} placeholder="+63..." />
+            </div>
+            <div className="grid gap-2">
+              <label htmlFor="clinicHours" className="text-sm font-medium">Clinic Hours (Optional)</label>
+              <Input id="clinicHours" value={newLeadForm.clinicHours} onChange={(e) => setNewLeadForm({...newLeadForm, clinicHours: e.target.value})} placeholder="9 AM - 5 PM" />
+            </div>
+          </div>
+          <div className="grid gap-2">
+            <label htmlFor="address" className="text-sm font-medium">Address (Optional)</label>
+            <Input id="address" value={newLeadForm.address} onChange={(e) => setNewLeadForm({...newLeadForm, address: e.target.value})} placeholder="123 Medical St..." />
           </div>
           <div className="grid gap-2">
             <label htmlFor="social" className="text-sm font-medium">LinkedIn / Social (Optional)</label>
