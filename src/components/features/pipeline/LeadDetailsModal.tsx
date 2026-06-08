@@ -142,6 +142,9 @@ export function LeadDetailsModal({ lead, open, onOpenChange }: LeadDetailsModalP
                   <>
                     <Input value={editedLead.email || ""} onChange={e => setEditedLead({...editedLead, email: e.target.value})} placeholder="Email Address" className="h-9" />
                     <Input value={editedLead.phone || ""} onChange={e => setEditedLead({...editedLead, phone: e.target.value})} placeholder="Phone Number" className="h-9" />
+                    <Input value={editedLead.fax || ""} onChange={e => setEditedLead({...editedLead, fax: e.target.value})} placeholder="Fax Number" className="h-9" />
+                    <Input value={editedLead.clinicHours || ""} onChange={e => setEditedLead({...editedLead, clinicHours: e.target.value})} placeholder="Clinic Hours" className="h-9" />
+                    <Input value={editedLead.address || ""} onChange={e => setEditedLead({...editedLead, address: e.target.value})} placeholder="Address" className="h-9" />
                     <Input value={editedLead.socialMedia || ""} onChange={e => setEditedLead({...editedLead, socialMedia: e.target.value})} placeholder="Social Media Link" className="h-9" />
                   </>
                 ) : (
@@ -154,6 +157,24 @@ export function LeadDetailsModal({ lead, open, onOpenChange }: LeadDetailsModalP
                       <Phone className="w-4 h-4 text-slate-400 group-hover:text-indigo-500" />
                       {displayPhone}
                     </a>
+                    {editedLead.fax && (
+                      <div className="flex items-center gap-3 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                        <span className="w-4 h-4 text-slate-400 font-bold flex items-center justify-center text-[10px]">FX</span>
+                        {editedLead.fax}
+                      </div>
+                    )}
+                    {editedLead.clinicHours && (
+                      <div className="flex items-center gap-3 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                        <Clock className="w-4 h-4 text-slate-400" />
+                        {editedLead.clinicHours}
+                      </div>
+                    )}
+                    {editedLead.address && (
+                      <div className="flex items-center gap-3 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                        <Building2 className="w-4 h-4 text-slate-400" />
+                        {editedLead.address}
+                      </div>
+                    )}
                     {editedLead.socialMedia && (
                       <a href={editedLead.socialMedia.startsWith('http') ? editedLead.socialMedia : `https://${editedLead.socialMedia}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/80 hover:text-indigo-700 transition-colors shadow-sm cursor-pointer group">
                         <LinkIcon className="w-4 h-4 text-slate-400 group-hover:text-indigo-500" />
@@ -180,6 +201,7 @@ export function LeadDetailsModal({ lead, open, onOpenChange }: LeadDetailsModalP
               
               {/* Note Input */}
               <div className="flex flex-col gap-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+
                 <textarea 
                   value={newNote}
                   onChange={(e) => setNewNote(e.target.value)}

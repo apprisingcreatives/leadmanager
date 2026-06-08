@@ -22,6 +22,10 @@ export type ProcessedDocument = {
     company: string;
     industry: string;
     budget?: string | null;
+    address?: string | null;
+    clinic_hours?: string | null;
+    tel?: string | null;
+    fax?: string | null;
   }>;
 };
 
@@ -32,7 +36,11 @@ const ExtractedLeadsSchema = z.object({
     name: z.string(),
     company: z.string(),
     industry: z.string(),
-    budget: z.string().nullable()
+    budget: z.string().nullable(),
+    address: z.string().nullable(),
+    clinic_hours: z.string().nullable(),
+    tel: z.string().nullable(),
+    fax: z.string().nullable()
   }))
 });
 
@@ -59,27 +67,41 @@ export async function uploadDocument(formData: FormData): Promise<ProcessedDocum
 
     const openai = new OpenAI({ apiKey: openAiKey });
 
-    const completion = await openai.chat.completions.parse({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: "You are an expert sales assistant. Read the provided document text and extract all potential B2B leads. Include their Name, Company, Industry, and any estimated Deal Value or Budget mentioned." },
-        { role: "user", content: `Extract leads from the following text:\n\n${textContent.substring(0, 150000)}` }
-      ],
-      response_format: zodResponseFormat(ExtractedLeadsSchema, "extracted_leads"),
-    });
-
-    const parsedData = completion.choices[0].message.parsed;
-    
-    if (!parsedData) {
-      throw new Error("AI failed to extract leads.");
+    const chunkSize = 25000;
+    const chunks = [];
+    for (let i = 0; i < textContent.length; i += chunkSize) {
+      chunks.push(textContent.substring(i, i + chunkSize));
     }
+
+    const chunkPromises = chunks.map(chunk => 
+      openai.chat.completions.parse({
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: "You are an expert data extractor. Read the provided document text and extract all B2B leads (clinics/hospitals). Include Name, Company, Industry (use 'Healthcare'), Budget, Address, Clinic Hours, Tel, and Fax numbers." },
+          { role: "user", content: `Extract leads from the following text:\n\n${chunk}` }
+        ],
+        response_format: zodResponseFormat(ExtractedLeadsSchema, "extracted_leads"),
+      }).catch(e => { console.error("Chunk processing error:", e); return null; })
+    );
+
+    const results = await Promise.all(chunkPromises);
+    
+    let allLeads: Array<{ name: string; company: string; industry: string; budget?: string | null; address?: string | null; clinic_hours?: string | null; tel?: string | null; fax?: string | null; }> = [];
+    let summary = "Extracted from large document.";
+    
+    results.forEach(res => {
+      if (res && res.choices[0].message.parsed) {
+        allLeads = allLeads.concat(res.choices[0].message.parsed.leads);
+        if (res.choices[0].message.parsed.summary) summary = res.choices[0].message.parsed.summary;
+      }
+    });
 
     return {
       id: Math.random().toString(36).substring(7),
       fileName: fileName,
       status: "completed",
-      summary: parsedData.summary,
-      extractedLeads: parsedData.leads,
+      summary: summary,
+      extractedLeads: allLeads,
       processedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 

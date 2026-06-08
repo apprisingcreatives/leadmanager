@@ -68,7 +68,10 @@ export function LeadsProvider({ children }: { children: React.ReactNode }) {
             email: dbLead.email,
             phone: dbLead.phone,
             socialMedia: dbLead.social_media,
-            notes: parsedNotes
+            address: dbLead.address,
+            clinicHours: dbLead.clinic_hours,
+            fax: dbLead.fax,
+            notes: Array.isArray(dbLead.notes) ? dbLead.notes : (parsedNotes || [])
           };
           if (newData[lead.status]) {
             newData[lead.status].push(lead);
@@ -100,6 +103,33 @@ export function LeadsProvider({ children }: { children: React.ReactNode }) {
   };
 
   const addLead = async (lead: Lead) => {
+    // Check for duplicates first
+    const allLeadsList = Object.values(pipelineData).flat();
+    const duplicate = allLeadsList.find(l => 
+      l.name.toLowerCase() === lead.name.toLowerCase() || 
+      (l.companyName && lead.companyName && l.companyName.toLowerCase() === lead.companyName.toLowerCase())
+    );
+
+    if (duplicate) {
+      let updated = false;
+      let newEmail = duplicate.email;
+      let newPhone = duplicate.phone;
+
+      if (lead.email && (!duplicate.email || !duplicate.email.includes(lead.email))) {
+        newEmail = duplicate.email ? `${duplicate.email}, ${lead.email}` : lead.email;
+        updated = true;
+      }
+      if (lead.phone && (!duplicate.phone || !duplicate.phone.includes(lead.phone))) {
+        newPhone = duplicate.phone ? `${duplicate.phone}, ${lead.phone}` : lead.phone;
+        updated = true;
+      }
+
+      if (updated) {
+        updateLead({ ...duplicate, email: newEmail, phone: newPhone });
+      }
+      return;
+    }
+
     // Update local state instantly (Optimistic UI)
     setPipelineData((prev) => ({
       ...prev,
@@ -122,6 +152,9 @@ export function LeadsProvider({ children }: { children: React.ReactNode }) {
         email: lead.email,
         phone: lead.phone,
         social_media: lead.socialMedia,
+        address: lead.address,
+        clinic_hours: lead.clinicHours,
+        fax: lead.fax,
         notes: lead.notes
       });
     }
@@ -150,6 +183,9 @@ export function LeadsProvider({ children }: { children: React.ReactNode }) {
         email: updatedLead.email,
         phone: updatedLead.phone,
         social_media: updatedLead.socialMedia,
+        address: updatedLead.address,
+        clinic_hours: updatedLead.clinicHours,
+        fax: updatedLead.fax,
         notes: updatedLead.notes
       }).eq('id', updatedLead.id);
     }

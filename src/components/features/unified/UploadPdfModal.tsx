@@ -35,7 +35,11 @@ export function UploadPdfModal({ open, onOpenChange }: { open: boolean, onOpenCh
                industry: lead.industry,
                value: parseInt(lead.budget?.replace(/[^0-9]/g, '').slice(0, 5) || "10000"),
                aiScore: Math.floor(Math.random() * 20) + 75,
-               status: 'Discovered'
+               status: 'Discovered',
+               address: lead.address || undefined,
+               clinicHours: lead.clinic_hours || undefined,
+               phone: lead.tel || undefined,
+               fax: lead.fax || undefined
              });
            });
            addedCount = result.extractedLeads.length;

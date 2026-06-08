@@ -16,6 +16,9 @@ export interface Lead {
   status: PipelineStage;
   email?: string;
   phone?: string;
+  fax?: string;
+  address?: string;
+  clinicHours?: string;
   socialMedia?: string;
   notes?: CallLog[];
 }
