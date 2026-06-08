@@ -21,7 +21,7 @@ export type ProcessedDocument = {
     name: string;
     company: string;
     industry: string;
-    budget?: string;
+    budget?: string | null;
   }>;
 };
 
